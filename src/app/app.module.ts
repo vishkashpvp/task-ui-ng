@@ -14,9 +14,15 @@ import { RouterModule } from '@angular/router';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { appRoutes } from './app.routes';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
-  declarations: [AppComponent, SignupComponent, NotFoundComponent],
+  declarations: [
+    AppComponent,
+    SignupComponent,
+    NotFoundComponent,
+    SigninComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),

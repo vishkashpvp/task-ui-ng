@@ -1,8 +1,13 @@
 import { Routes } from '@angular/router';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SigninComponent } from './signin/signin.component';
 
 export const appRoutes: Routes = [
+  {
+    path: 'account/signin',
+    component: SigninComponent,
+  },
   {
     path: 'account/signup',
     component: SignupComponent,
