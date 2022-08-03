@@ -35,14 +35,11 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Password</mat-label>
                   <input
-                    [type]="toggleEye ? 'password' : 'text'"
+                    [type]="'password'"
                     formControlName="password"
                     placeholder="Enter password"
                     matInput
                   />
-                  <mat-icon matSuffix (click)="toggleEye = !toggleEye">{{
-                    toggleEye ? "visibility_off" : "visibility"
-                  }}</mat-icon>
                   <mat-error> password error </mat-error>
                 </mat-form-field>
               </div>

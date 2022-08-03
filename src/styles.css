@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.home-snackbar {
+  background: #69f0ae;
+  color: #000;
+  white-space: pre-wrap;
+}
+.home-snackbar-fail {
+  background: #ff3737;
+  color: #fff;
+  white-space: pre-wrap;
+}

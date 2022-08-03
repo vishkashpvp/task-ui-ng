@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  HOME_SNACKBAR: 'home-snackbar',
+  HOME_SNACKBAR_FAIL: 'home-snackbar-fail',
 };
 
 /*

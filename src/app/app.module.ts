@@ -15,6 +15,8 @@ import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { appRoutes } from './app.routes';
 import { SigninComponent } from './signin/signin.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { SigninComponent } from './signin/signin.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
