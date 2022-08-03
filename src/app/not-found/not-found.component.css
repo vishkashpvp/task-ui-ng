@@ -1,0 +1,14 @@
+.page-center-error {
+  text-align: center;
+  color: red;
+  position: fixed;
+  z-index: 999;
+  height: 6em;
+  width: auto;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
