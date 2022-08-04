@@ -17,6 +17,23 @@ export class UserService {
   }
 
   /**
+   * @returns current user object from local storage
+   */
+  getCurrentUser() {
+    let curr_user = this.localStorageService.get('currentUser');
+    return curr_user ? JSON.parse(curr_user) : {};
+  }
+
+  /**
+   * @summary clears keys related to current user
+   */
+  clearCurrentUserDetails() {
+    this.localStorageService.remove('currentUser');
+    this.localStorageService.remove('currentUserEmployees');
+    this.localStorageService.remove('currentUserEmployeesCount');
+  }
+
+  /**
    * @summary Adds new user object to existing users array
    * @param user
    */

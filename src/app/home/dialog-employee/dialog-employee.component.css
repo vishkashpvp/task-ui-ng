@@ -1,0 +1,12 @@
+.img-xxx {
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin: auto;
+}
+
+.center-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

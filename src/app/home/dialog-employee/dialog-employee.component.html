@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>
+  ADD NEW EMPLOYEE - {{ mat_dialog_data["usermail"].toUpperCase() }}
+  <mat-icon
+    style="cursor: pointer; float: right"
+    (click)="closeProfileDialog()"
+  >
+    close
+  </mat-icon>
+</h2>
+
+<mat-dialog-content>
+  <div class="card mt-3">
+    <div class="card-body">
+      <form [formGroup]="employee_form" (ngSubmit)="add_emp(employee_form)">
+        <div class="mb-3">
+          <img
+            [src]="emp_img_url"
+            class="rounded-circle border border-secondary img-xxx"
+            alt="employee image"
+            id="emp-img"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <input
+            type="file"
+            accept=".jpg, .png"
+            class="form-control"
+            id="emp-img-file"
+            (change)="previewImage($event.target)"
+          />
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Employee Name</mat-label>
+            <input
+              formControlName="employee_name"
+              placeholder="Enter Employee Name"
+              matInput
+            />
+            <mat-error> employee name error </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Employee Mail</mat-label>
+            <input
+              formControlName="employee_mail"
+              placeholder="Enter Employee Mail"
+              matInput
+            />
+            <mat-error> employee mail error </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Employee Mobile</mat-label>
+            <input
+              formControlName="employee_mobile"
+              placeholder="Enter Employee Mobile Number"
+              matInput
+            />
+            <mat-error> employee mobile number error </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label> Technology </mat-label>
+            <mat-select formControlName="employee_tech">
+              <mat-option *ngFor="let tech of technologies" [value]="tech">
+                {{ tech }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group center-btn">
+          <button class="btn btn-primary">ADD EMPLOYEE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>
