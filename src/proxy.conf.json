@@ -1,0 +1,10 @@
+{
+  "/api/*": {
+    "target": "https://api-jio-ems.herokuapp.com/",
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true,
+    "secure": false
+  }
+}
