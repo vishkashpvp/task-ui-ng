@@ -33,7 +33,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Employee Name</mat-label>
             <input
-              formControlName="employee_name"
+              formControlName="name"
               placeholder="Enter Employee Name"
               matInput
             />
@@ -44,7 +44,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Employee Mail</mat-label>
             <input
-              formControlName="employee_mail"
+              formControlName="mail"
               placeholder="Enter Employee Mail"
               matInput
             />
@@ -55,7 +55,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Employee Mobile</mat-label>
             <input
-              formControlName="employee_mobile"
+              formControlName="mobile"
               placeholder="Enter Employee Mobile Number"
               matInput
             />
@@ -65,7 +65,7 @@
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label> Technology </mat-label>
-            <mat-select formControlName="employee_tech">
+            <mat-select formControlName="technology">
               <mat-option *ngFor="let tech of technologies" [value]="tech">
                 {{ tech }}
               </mat-option>

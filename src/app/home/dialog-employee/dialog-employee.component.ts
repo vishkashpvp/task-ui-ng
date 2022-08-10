@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { LocalStorageService } from '../../services/local-storage.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HomeService} from "../home.service";
 
 @Component({
   selector: 'app-dialog-employee',
@@ -17,6 +18,7 @@ export class DialogEmployeeComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
     private dialogRef: MatDialogRef<DialogEmployeeComponent>,
+    private homeService: HomeService,
     @Inject(MAT_DIALOG_DATA) data: any,
     private fb: FormBuilder
   ) {
@@ -30,7 +32,7 @@ export class DialogEmployeeComponent implements OnInit {
 
   createEmployeeForm() {
     this.employee_form = this.fb.group({
-      employee_name: [
+      name: [
         'Ram',
         [
           Validators.required,
@@ -38,11 +40,11 @@ export class DialogEmployeeComponent implements OnInit {
           Validators.maxLength(20),
         ],
       ],
-      employee_mail: [
+      mail: [
         'ram@ril.com',
         [Validators.required, Validators.pattern('[a-zA-z0-9\\.]*@ril\\.com$')],
       ],
-      employee_mobile: [
+      mobile: [
         '1234567890',
         [
           Validators.required,
@@ -50,7 +52,7 @@ export class DialogEmployeeComponent implements OnInit {
           Validators.max(9999999999),
         ],
       ],
-      employee_tech: ['Node.js', Validators.required],
+      technology: ['Node.js', Validators.required],
     });
   }
 
@@ -79,10 +81,23 @@ export class DialogEmployeeComponent implements OnInit {
 
   add_emp(form: FormGroup) {
     if (!form.valid) {
-      return alert('Required values are not provided');
+      return;
     }
     form.value.usermail = this.mat_dialog_data.usermail;
-    console.log(typeof form.value);
-    console.log(form.value);
+    form.value.user_id = this.mat_dialog_data.user_id;
+
+    this.homeService.addEmployee(form.value).subscribe({
+      next: value => {
+        console.log(value)
+      },
+      error: err => {
+        console.log(err)
+        console.log(err.error)
+      },
+      complete: () => {
+        console.log('completed')
+      }
+    })
+
   }
 }

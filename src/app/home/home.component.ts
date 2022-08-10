@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
   openEmployeeDialog() {
     const employeeDialog = this.matDialog.open(DialogEmployeeComponent, {
       width: '50vw',
-      data: { usermail: this.currentUser.mail },
+      data: { usermail: this.currentUser.mail, user_id: this.currentUser._id },
       disableClose: true,
       autoFocus: false,
     });

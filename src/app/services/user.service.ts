@@ -20,7 +20,7 @@ export class UserService {
    * @returns current user object from local storage
    */
   getCurrentUser() {
-    let curr_user = this.localStorageService.get('currentUser');
+    let curr_user = this.localStorageService.get('user');
     return curr_user ? JSON.parse(curr_user) : {};
   }
 
