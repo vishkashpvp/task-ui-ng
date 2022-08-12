@@ -25,6 +25,14 @@ export class UserService {
   }
 
   /**
+   * @summary Sets user object in local storage.
+   * @param user
+   */
+  updateCurrentUser(user: object) {
+    this.localStorageService.set('user', JSON.stringify(user));
+  }
+
+  /**
    * @summary clears keys related to current user
    */
   clearCurrentUserDetails() {

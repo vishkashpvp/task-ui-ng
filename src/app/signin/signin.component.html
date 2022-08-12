@@ -11,7 +11,7 @@
                 <mat-form-field appearance="outline">
                   <mat-label>User Mail</mat-label>
                   <input
-                    formControlName="usermail"
+                    formControlName="mail"
                     placeholder="Enter user mail"
                     matInput
                   />
@@ -38,7 +38,17 @@
               </div>
 
               <div class="form-group">
-                <button class="btn btn-primary" type="submit">Sign In</button>
+                <button
+                  *ngIf="!signinLoading"
+                  class="btn btn-primary"
+                  type="submit"
+                >
+                  Sign In
+                </button>
+                <mat-spinner
+                  *ngIf="signinLoading"
+                  [diameter]="25"
+                ></mat-spinner>
               </div>
             </form>
           </div>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SigninService } from './signin.service';
+import { AppService } from '../app.service';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-signin',
@@ -9,8 +14,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SigninComponent implements OnInit {
   signInForm!: FormGroup;
   toggleEye: boolean = true;
+  signinLoading: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private appService: AppService,
+    private employeeService: EmployeeService,
+    private userService: UserService,
+    private signinService: SigninService
+  ) {
     this.createSignInForm();
   }
 
@@ -18,7 +31,7 @@ export class SigninComponent implements OnInit {
 
   createSignInForm() {
     this.signInForm = this.fb.group({
-      usermail: ['', Validators.required],
+      mail: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -28,6 +41,25 @@ export class SigninComponent implements OnInit {
       console.log('form is not complete');
       return;
     }
-    console.log(form.value);
+
+    this.signinLoading = true;
+
+    this.signinService.signInUser(form.value).subscribe({
+      next: (value) => {
+        this.userService.updateCurrentUser(value);
+        this.appService.openSuccessSnackbar('Signin Successful');
+        this.signinLoading = false;
+        this.router.navigate(['']).then((r) => console.log(r));
+      },
+      error: (err) => {
+        console.log(err);
+        if (err.status === 503) {
+          this.appService.openFailSnackbar(`${err.status} ${err.statusText}`);
+        } else {
+          this.appService.openFailSnackbar(err.error.error);
+        }
+        this.signinLoading = false;
+      },
+    });
   }
 }
