@@ -3,6 +3,7 @@ import { EmployeeModel } from '../models/employee-model';
 import { LocalStorageService } from './local-storage.service';
 import { UserModel } from '../models/user-model';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class EmployeeService {
   constructor(
     private localStorageService: LocalStorageService,
+    private http: HttpClient,
     private router: Router
   ) {}
 
@@ -41,10 +43,23 @@ export class EmployeeService {
   }
 
   /**
+   * @summary Fetches employees array from database of current user.
+   * @returns http response observable
+   * @param user
+   */
+  getUserEmployees(user: any) {
+    return this.http.get('/api/employees', {
+      params: {
+        user_id: user._id,
+      },
+    });
+  }
+
+  /**
    * @summary replaces employees array with new array
    * @param employees
    */
-  updateAllEmployees(employees: EmployeeModel[]) {
+  updateAllEmployees(employees: any) {
     this.localStorageService.set('employeesCount', String(employees.length));
     this.localStorageService.set('employees', JSON.stringify(employees));
   }

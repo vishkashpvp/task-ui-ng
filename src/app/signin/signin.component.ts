@@ -47,9 +47,32 @@ export class SigninComponent implements OnInit {
     this.signinService.signInUser(form.value).subscribe({
       next: (value) => {
         this.userService.updateCurrentUser(value);
+        const user = this.userService.getCurrentUser();
+
         this.appService.openSuccessSnackbar('Signin Successful');
         this.signinLoading = false;
-        this.router.navigate(['']).then((r) => console.log(r));
+
+        this.router.navigate(['']).then((r) => {
+          this.employeeService.getUserEmployees({ _id: user._id }).subscribe({
+            next: (value) => {
+              console.log(value);
+              this.employeeService.updateAllEmployees(value);
+            },
+            error: (value) => {
+              if (value.status === 503) {
+                return this.appService.openFailSnackbar(
+                  `${value.status} ${value.statusText}`
+                );
+              }
+              console.log(value);
+              console.log(value.error);
+              if (value.error.error) {
+                return this.appService.openFailSnackbar(value.error.error);
+              }
+            },
+          });
+          console.log(r);
+        });
       },
       error: (err) => {
         console.log(err);
