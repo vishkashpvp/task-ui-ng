@@ -43,6 +43,23 @@ export class EmployeeService {
   }
 
   /**
+   * @summary
+   * Fetches employee object with given id of the employee
+   * if exists or returns empty object.
+   * @param employeeID
+   * @returns employee object or empty object
+   */
+  getEmployee(employeeID: string) {
+    let employees = this.getAllEmployees();
+
+    let employee = employees.find((emp: any) => {
+      return emp._id === employeeID;
+    });
+
+    return employee ? employee : {};
+  }
+
+  /**
    * @summary Fetches employees array from database of current user.
    * @returns http response observable
    * @param user

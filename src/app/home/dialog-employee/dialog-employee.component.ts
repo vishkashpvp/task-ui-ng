@@ -1,8 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {LocalStorageService} from '../../services/local-storage.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HomeService} from "../home.service";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HomeService } from '../home.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-dialog-employee',
@@ -14,26 +15,31 @@ export class DialogEmployeeComponent implements OnInit {
   emp_img_url = './assets/add.png';
   technologies: string[] = ['Android', 'Angular', 'Java', 'Node.js'];
   employee_form!: FormGroup;
+  currentEmployee;
+  eventName;
 
   constructor(
     private localStorageService: LocalStorageService,
+    private employeeService: EmployeeService,
     private dialogRef: MatDialogRef<DialogEmployeeComponent>,
     private homeService: HomeService,
     @Inject(MAT_DIALOG_DATA) data: any,
     private fb: FormBuilder
   ) {
     this.mat_dialog_data = data;
+    this.eventName = data.eventName;
+    this.currentEmployee = employeeService.getEmployee(
+      this.mat_dialog_data.data._id
+    );
     this.createEmployeeForm();
   }
 
-  ngOnInit(): void {
-    console.log(this.mat_dialog_data);
-  }
+  ngOnInit(): void {}
 
   createEmployeeForm() {
     this.employee_form = this.fb.group({
       name: [
-        'Ram',
+        this.eventName === 'edit' ? this.currentEmployee.name : '',
         [
           Validators.required,
           Validators.minLength(3),
@@ -41,18 +47,21 @@ export class DialogEmployeeComponent implements OnInit {
         ],
       ],
       mail: [
-        'ram@ril.com',
+        this.eventName === 'edit' ? this.currentEmployee.mail : '',
         [Validators.required, Validators.pattern('[a-zA-z0-9\\.]*@ril\\.com$')],
       ],
       mobile: [
-        '1234567890',
+        this.eventName === 'edit' ? this.currentEmployee.mobile : '',
         [
           Validators.required,
           Validators.min(1000000000),
           Validators.max(9999999999),
         ],
       ],
-      technology: ['Node.js', Validators.required],
+      technology: [
+        this.eventName === 'edit' ? this.currentEmployee.technology : 'Node.js',
+        Validators.required,
+      ],
     });
   }
 
@@ -79,6 +88,14 @@ export class DialogEmployeeComponent implements OnInit {
     }
   }
 
+  submitForm(form: FormGroup) {
+    if (this.eventName === 'edit') {
+      this.edit_emp(form);
+    } else {
+      this.add_emp(form);
+    }
+  }
+
   add_emp(form: FormGroup) {
     if (!form.valid) {
       return;
@@ -87,17 +104,20 @@ export class DialogEmployeeComponent implements OnInit {
     form.value.user_id = this.mat_dialog_data.user_id;
 
     this.homeService.addEmployee(form.value).subscribe({
-      next: value => {
-        console.log(value)
+      next: (value) => {
+        console.log(value);
       },
-      error: err => {
-        console.log(err)
-        console.log(err.error)
+      error: (err) => {
+        console.log(err);
+        console.log(err.error);
       },
       complete: () => {
-        console.log('completed')
-      }
-    })
+        console.log('completed');
+      },
+    });
+  }
 
+  edit_emp(form: FormGroup) {
+    console.log('updating employee...');
   }
 }

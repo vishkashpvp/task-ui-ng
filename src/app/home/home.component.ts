@@ -33,9 +33,7 @@ export class HomeComponent implements OnInit {
     private matDialog: MatDialog
   ) {
     this.currentUser = this.userService.getCurrentUser();
-    this.currentUserEmployees = this.employeeService.getCurrentUserEmployees(
-      this.currentUser
-    );
+    this.currentUserEmployees = this.employeeService.getAllEmployees();
   }
 
   ngOnInit(): void {}
@@ -51,10 +49,27 @@ export class HomeComponent implements OnInit {
       .then((r) => console.log('Logged out successfully'));
   }
 
-  openEmployeeDialog() {
+  editEmployee(employeeID: any) {
+    this.openEmployeeDialog('edit', { _id: employeeID });
+  }
+
+  deleteEmployee(employeeID: any) {
+    console.log(employeeID, 'delete clicked...');
+  }
+
+  addEmployee() {
+    this.openEmployeeDialog('add', {});
+  }
+
+  openEmployeeDialog(eventName: string, data: object) {
     const employeeDialog = this.matDialog.open(DialogEmployeeComponent, {
       width: '50vw',
-      data: { usermail: this.currentUser.mail, user_id: this.currentUser._id },
+      data: {
+        eventName,
+        data,
+        usermail: this.currentUser.mail,
+        user_id: this.currentUser._id,
+      },
       disableClose: true,
       autoFocus: false,
     });
