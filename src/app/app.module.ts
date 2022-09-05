@@ -23,6 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogEmployeeComponent } from './home/dialog-employee/dialog-employee.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfileComponent } from './profile/profile.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     SigninComponent,
     HomeComponent,
     DialogEmployeeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     FormsModule,
     HttpClientModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
